@@ -1,11 +1,10 @@
 
 
-
-
-
+import time
 import pytest
 from login import LoginPage
 from Add_to_cart import ProductPage
+from checkout import Payment
 
 def test_submit(browser):
     step1 = LoginPage(browser)
@@ -39,3 +38,29 @@ def test_pro(browser):
     # step2.open_first_item()  # optional: open product before add-to-cart
 
     assert "cart" not in browser.current_url  # cart page abhi open nahi hua, sirf item add hua hai
+
+    time.sleep(4)
+
+def test_check(browser):
+    step1 = LoginPage(browser)
+    step2 = ProductPage(browser)
+    step3 = Payment(browser)
+
+    # Open site
+    step1.open_page("https://www.saucedemo.com/")
+
+    # Perform login
+    step1.enter_username("standard_user")
+    step1.enter_password("secret_sauce")
+    step1.log_in()
+
+    # Perform product actions
+    step2.add_to_cart()
+
+    # perform cart page actions
+    step3.cart()
+
+
+    step3.check()
+
+    time.sleep(3)
