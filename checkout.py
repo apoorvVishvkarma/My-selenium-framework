@@ -14,4 +14,3 @@ class Payment:
 
     def check(self):
         self.driver.find_element(*self.Check_out).click()
-
